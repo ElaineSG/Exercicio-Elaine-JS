@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício DOM</title>
+</head>
+<body>
+    <h1 id="titulo">Bem-vindo(a)</h1>
+    <button onclick="entrar()">Entrar</button>
+    <script src="exerc3jselaine.js"></script>
+    <script>
+    function entrar() {
+        document.getElementById("titulo").textContent = "Você entrou na página com sucesso!";
+        document.querySelector("button").textContent = "Entrou!";
+         let novoParagrafo = document.createElement("p");
+        novoParagrafo.textContent = "Agora você faz parte da página!";
+        document.body.appendChild(novoParagrafo);    
+    }
+    </script>
+</body>
+</html>

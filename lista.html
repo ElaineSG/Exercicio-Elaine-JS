@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista Dinâmica de Cores</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: background-color 0.5s ease;
+    }
+    
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    
+    .lista-cores {
+      list-style-type: none;
+      margin: 20px 0;
+    }
+    
+    .item-cor {
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-align: center;
+      text-transform: capitalize;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      color: #2c3e50;
+      border: 2px solid transparent;
+    }
+    
+    .item-cor:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .info-cor {
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      font-style: italic;
+    }
+    
+    .btn-reset {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+    
+    .btn-reset:hover {
+      background-color: #1a252f;
+      transform: translateY(-2px);
+    }
+    
+    .instrucoes {
+      margin-top: 25px;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎨 Lista de Cores</h2>
+    <ul id="lista" class="lista-cores"></ul>
+    
+    <div id="corAtual" class="info-cor">
+      Clique em uma cor acima para alterar o fundo da página
+    </div>
+    
+    <button id="btnReset" class="btn-reset">Resetar Cor de Fundo</button>
+    
+    <div class="instrucoes">
+      <p>Clique em qualquer cor da lista para alterar o plano de fundo</p>
+    </div>
+  </div>
+
+  <script>
+    // Função principal para inicializar a aplicação
+    function inicializarAplicacao() {
+      // Array de cores com seus valores hexadecimais
+      const cores = [
+        { nome: "vermelho", valor: "#ff0000" },
+        { nome: "verde", valor: "#00ff00" },
+        { nome: "azul", valor: "#0000ff" },
+        { nome: "amarelo", valor: "#ffff00" },
+        { nome: "roxo", valor: "#800080" },
+        { nome: "laranja", valor: "#ffa500" }
+      ];
+      
+      // Elementos do DOM
+      const listaElement = document.getElementById("lista");
+      const corAtualElement = document.getElementById("corAtual");
+      const btnReset = document.getElementById("btnReset");
+      
+      // Função para criar os itens da lista
+      function criarItensLista() {
+        // Limpar lista existente
+        listaElement.innerHTML = '';
+        
+        // Percorrer cada cor e criar <li>
+        cores.forEach(cor => {
+          const item = document.createElement("li");
+          item.textContent = cor.nome;
+          item.className = "item-cor";
+          item.style.backgroundColor = cor.valor;
+          
+          // Adicionar evento de clique
+          item.addEventListener("click", () => {
+            alterarCorFundo(cor);
+          });
+          
+          listaElement.appendChild(item);
+        });
+      }
+      
+      // Função para alterar a cor de fundo
+      function alterarCorFundo(cor) {
+        document.body.style.backgroundColor = cor.valor;
+        corAtualElement.textContent = `Cor de fundo atual: ${cor.nome}`;
+        corAtualElement.style.backgroundColor = cor.valor;
+        corAtualElement.style.color = "#fff";
+      }
+      
+      // Função para resetar a cor de fundo
+      function resetarCorFundo() {
+        document.body.style.backgroundColor = "";
+        corAtualElement.textContent = "Clique em uma cor para alterar o fundo";
+        corAtualElement.style.backgroundColor = "#f8f9fa";
+        corAtualElement.style.color = "#2c3e50";
+      }
+      
+      // Adicionar evento de clique ao botão de reset
+      btnReset.addEventListener("click", resetarCorFundo);
+      
+      // Inicializar a aplicação
+      criarItensLista();
+    }
+    
+    // Inicializar a aplicação quando o DOM estiver carregado
+    document.addEventListener("DOMContentLoaded", inicializarAplicacao);
+  </script>
+</body>
+</html>
